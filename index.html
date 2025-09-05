@@ -65,7 +65,6 @@
                 githubTokenInput.value = savedToken;
             }
         });
-        // Enhanced logging functions
         function logInfo(message) {
             logToConsoleStyled(message, 'info');
         }
@@ -98,7 +97,9 @@
                 perPage = parseInt(perPageInput.value),
                 fileType = fileTypeInput.value,
             } = options;
-
+            if (githubTokenInput.value.trim() === '') {
+                logWarn('No GitHub token was provided. Please input a token, or look at the readme for instructions.');
+            }
             const headers = new Headers({
                 'Accept': 'application/vnd.github.v3+json'
             });
