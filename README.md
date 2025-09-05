@@ -2,8 +2,7 @@
 ## Index
   - [Overview](#overview) 
   - [Getting Started](#getting-started)
-  - [Contributing](#contributing)
-  - [Authors](#authors)
+  - [Authors](#contributing--authors)
 
 ## Overview
 
@@ -17,9 +16,13 @@ After you are done making the account, you will need to get your token. You can 
 
 >>> *Please note that GitHub limits you to 5000 requests per hour, although this may be increased for GitHub Enterprise Cloud accounts.*
 
-## Contributing
-<!-- Write the way to contribute -->
-For suggestions, open an issue. I will try to respond to all of them.
+## Searching Features
 
-## Authors
+Searching with this tool is similar to searching on GitHub. Boolean search operators are supported(OR, NOT, AND, etc.), but there can only be 5 or less in one search. You also cannot have a search longer than 256 characters(not including the operators or qualifiers). 
+
+Searching by username, date, and more is also supported. 
+
+## Contributing & Authors
+
+For suggestions, open an issue. I will try to respond to all of them.
  - Ben(benni-ben)
