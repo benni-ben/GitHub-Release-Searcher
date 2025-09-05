@@ -24,6 +24,10 @@
     font-style: normal;
     font-display: swap;
     }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
 </style>
 
 <body>
@@ -47,6 +51,7 @@
         <div id="consoleOutput"
             style="width: 70%; max-width: 1000px; margin: 40px auto 0 auto; background: #181818; color: #e0e0e0; padding: 16px; min-height: 420px; max-height: 900px; overflow-y: auto; font-size: 15px; font-family: 'Fira Mono', monospace; box-shadow: 0 7px 8px #0002; margin-bottom: 24px; text-align: left;">
         </div>
+    <div id=loader style="visibility: hidden; margin:auto; border: 16px solid #f3f3f3; border-top: 16px solid #3498db; border-radius: 50%; width: 120px; height: 120px; animation: spin 2s linear infinite;"></div>    
     </div>
     <script>
         const searchQueryInput = document.getElementById('searchQuery');
@@ -56,6 +61,7 @@
         const fileTypeInput = document.getElementById('fileType');
         const resultsDiv = document.getElementById('consoleOutput');
         const downloadingButton = document.getElementById('download');
+        const loader = document.getElementById('loader');
         githubTokenInput.addEventListener("input", () => { //save to local storage
             localStorage.setItem("githubToken", githubTokenInput.value);
         });
@@ -76,6 +82,13 @@
             let output = `${context ? context + ': ' : ''}${shortMsg}`;
             logToConsoleStyled(output, 'error');
         }
+        function loaderAnim(visible) {
+            if (visible) {
+                loader.style.visibility = 'visible';
+            } else {
+                loader.style.visibility = 'hidden';
+            }
+        }
         function logToConsoleStyled(message, type = 'log') {
             const consoleDiv = document.getElementById('consoleOutput');
             const time = new Date().toLocaleTimeString();
@@ -90,6 +103,7 @@
         }
 
         async function startRepoSearch(options = {}) {
+            loaderAnim("visible");
             const {
                 query = searchQueryInput.value,
                 token = githubTokenInput.value,
