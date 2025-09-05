@@ -43,17 +43,20 @@
 
 <body>
     <div style="text-align: center;">
-        <input type="text" id="searchQuery" style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" placeholder="Search query (e.g., ecosia browser)" />
-        <input type="text" id="githubToken" style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" placeholder="GitHub Token" />
-        <input type="text" id="fileType" style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" placeholder="File type to look for (e.g., .zip)" />
-        <select id="sortBy">
+        <h1 style="font-family: 'Fira Sans', sans-serif; text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.58);">GitHub Repository File Search</h1>
+        <hr width="50%" style="border: 0; height: 1px; background: #3333336e;" />
+        <br>
+        <input type="text" title="Search query used for repository searching. Boolean search operators are supported, but the maximum is 6 boolean operators." id="searchQuery" style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" placeholder="Search query (e.g., ecosia browser)" />
+        <input type="text" title="Your GitHub token to use for the search. This is neccessary for searching. Token is automatically saved once you input it."id="githubToken" style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" placeholder="GitHub Token" />
+        <input type="text" title="The file type to look for."id="fileType" style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" placeholder="File type to look for (e.g., .zip)" />
+        <select id="sortBy" title="The sorting method for the search.">
             <option style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" value="updated">Last Updated</option>
             <option style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" value="created">Created Date</option>
             <option style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" value="pushed">Last Pushed</option>
         </select>
         <input style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" type="number" id="perPage" value="100" min="1" max="100" />
         <button style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" onclick="startSearch()">Search</button>
-        <button style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" id="download" onclick="downloadJSON()">Download JSON</button>
+        <button title="Download all of the console's output in .JSON format. This includes error output."style="font-family: 'Fira Sans', monospace; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.58);" id="download" onclick="downloadJSON()">Download JSON</button>
     </div>
     <div style="text-align: center;">
         <p id="Searching"
