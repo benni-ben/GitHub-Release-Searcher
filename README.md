@@ -26,3 +26,5 @@ Searching by username, date, and more is also supported.
 
 For suggestions, open an issue. I will try to respond to all of them.
  - Ben(benni-ben)
+
+If you like this tool, then please star the repository! It helps out a lot.
