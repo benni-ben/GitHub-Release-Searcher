@@ -141,8 +141,7 @@
         </select>
         <input class="standardDesign" type="number"
             id="perPage" value="100" min="1" max="100" />
-        <button class="standardDesign"
-            onclick="startSearch()">Search</button>
+        <button class="standardDesign" id="searchButton">Search</button>
         <button title="Download all of the console's output in .JSON format. This includes error output."
             class="standardDesign" id="download"
             onclick="downloadJSON()">Download JSON</button>
@@ -166,6 +165,7 @@
         const fileTypeInput = document.getElementById('fileType');
         const resultsDiv = document.getElementById('consoleOutput');
         const downloadingButton = document.getElementById('download');
+        const searchButton = document.getElementById('searchButton');
         const loader = document.getElementById('loader');
         githubTokenInput.addEventListener("input", () => { //save to local storage
             localStorage.setItem("githubToken", githubTokenInput.value);
@@ -281,13 +281,19 @@
                 throw new Error('A problem occurred during the search. Please check your network connection, GitHub token, or query, and try again.');
             }
         }
-
+        if (searchButton.textContent === 'Search') {
+            startSearch();
+        }
+        else {
+            wasPressed = false;
+        }
         async function startSearch() {
             wasPressed = true;
+            searchButton.textContent = 'Stop Search';
             resultsDiv.textContent = 'Searching'; // dot animation
             document.getElementById('Searching').textContent = 'Searching';
             let dots = 0;
-            const interval = setInterval(() => {
+            window.interval = setInterval(() => {
                 if (dots < 3) {
                     document.getElementById('Searching').textContent += '.';
                     dots++;
@@ -296,7 +302,17 @@
                     dots = 0;
                 }
             }, 1000);
-
+            const stopHandler = () => {
+                if (searchButton.textContent === 'Stop Search') {
+                    wasPressed = false;
+                    clearInterval(window.interval);
+                    document.getElementById('Searching').textContent = 'Search stopped.';
+                    loaderAnim("hidden");
+                    searchButton.textContent = 'Search';
+                    searchButton.removeEventListener('click', stopHandler);
+                }
+            };
+            searchButton.addEventListener('click', stopHandler);
             try {
                 const results = await startRepoSearch({
                     query: searchQueryInput.value,
