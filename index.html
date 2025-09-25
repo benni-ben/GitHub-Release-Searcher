@@ -172,6 +172,7 @@
         const resultsDiv = document.getElementById('consoleOutput');
         const downloadingButton = document.getElementById('download');
         const loader = document.getElementById('loader');
+        const searchingTitle = document.getElementById('Searching');
         githubTokenInput.addEventListener("input", () => { //save to local storage
             localStorage.setItem("githubToken", githubTokenInput.value);
         });
@@ -244,8 +245,14 @@
                     logToConsoleStyled(`GitHub API error: ${reposResponse.status}`, 'error');
                     throw new Error(`GitHub API error: ${reposResponse.status}`);
                 }
-
                 const repos = await reposResponse.json();
+                if (repos.total_count === 0) {
+                    logWarn('No repositories found matching the query.');
+                    return [];
+                }
+                else {
+                    logInfo(`Found ${repos.total_count} repositories. Starting to check releases...`);
+                }
                 const results = [];
 
                 for (const repo of repos.items) {
@@ -283,15 +290,14 @@
         }
         async function startSearch() {
             wasPressed = true;
-            resultsDiv.textContent = 'Searching'; // dot animation
-            document.getElementById('Searching').textContent = 'Searching';
+            searchingTitle.textContent = 'Searching';
             let dots = 0;
             const interval = setInterval(() => {
                 if (dots < 3) {
-                    document.getElementById('Searching').textContent += '.';
+                    searchingTitle.textContent += '.';
                     dots++;
                 } else {
-                    document.getElementById('Searching').textContent = 'Searching';
+                    searchingTitle.textContent = 'Searching';
                     dots = 0;
                 }
             }, 1000);
@@ -303,13 +309,12 @@
                     perPage: parseInt(perPageInput.value),
                     fileType: fileTypeInput.value
                 });
-                resultsDiv.textContent = JSON.stringify(results, null, 2);
+                resultsDiv.textContent = JSON.stringify(results, 2);
             } catch (error) {
-                resultsDiv.textContent = `Error: ${error.message}`;
-                logError(error, 'Search Error');
+                logError(error, 'Searching error.');
             }
             clearInterval(interval);
-            document.getElementById('Searching').textContent = 'Search stopped.';
+            searchingTitle.textContent = 'Search stopped.';
             loaderAnim("hidden");
         }
         function downloadJSON() {
