@@ -249,7 +249,7 @@
                 const results = [];
 
                 for (const repo of repos.items) {
-                    logInfo(`Checking releases for repo: ${repo.full_name}`);
+                    logInfo(`Checked releases for the repo: ${repo.full_name}`);
                     const releasesResponse = await fetch(
                         `https://api.github.com/repos/${repo.full_name}/releases`,
                         { headers }
