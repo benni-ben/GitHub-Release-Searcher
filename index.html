@@ -213,7 +213,7 @@
             consoleDiv.appendChild(logElem);
             consoleDiv.scrollTop = consoleDiv.scrollHeight;
         }
-
+        //todo: add result count using 'X-Total-Count' header from github api, and only search that number of results to hopefully avoid the console clearing by itself
         async function startRepoSearch(options = {}) {
             loaderAnim("visible");
             const {
